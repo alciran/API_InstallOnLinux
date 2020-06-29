@@ -6,6 +6,7 @@
 package br.com.apiInstallOnLinux.Repository;
 
 import br.com.apiInstallOnLinux.Model.Distribuicao;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -13,5 +14,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author alciran
  */
 public interface DistribuicaoRepository extends JpaRepository<Distribuicao, Long> {
-    
+    public List<Distribuicao> findByAtivo(Boolean ativo);
 }

@@ -48,11 +48,16 @@ public class DistribuicaoResource {
         return distribuicaoService.buscarPorId(id);
     }
     
+    @GetMapping("/ativos")
+    public List<Distribuicao> listarAtivos(){
+        return distribuicaoService.buscarAtivos();
+    }
+    
     @PostMapping
     public ResponseEntity<Distribuicao> criar(@Valid @RequestBody Distribuicao distribuicao, HttpServletResponse response){
         Distribuicao distribuicaoCriada = distribuicaoService.criar(distribuicao);
-         publisher.publishEvent(new RecursoCriadoEvent(this, response, distribuicaoCriada.getId()));
-         return ResponseEntity.status(HttpStatus.CREATED).body(distribuicaoCriada);
+        publisher.publishEvent(new RecursoCriadoEvent(this, response, distribuicaoCriada.getId()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(distribuicaoCriada);
     }
     
     @PutMapping("/{id}")

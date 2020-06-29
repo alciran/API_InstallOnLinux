@@ -57,5 +57,9 @@ public class DistribuicaoService {
         distribuicaoAtualizada.addNumDownScript();
         distribuicaoRepository.save(distribuicaoAtualizada);
     }
+
+    public List<Distribuicao> buscarAtivos() {
+        return distribuicaoRepository.findByAtivo(Boolean.TRUE);
+    }
     
 }
