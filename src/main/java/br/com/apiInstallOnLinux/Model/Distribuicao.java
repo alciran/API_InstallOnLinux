@@ -6,6 +6,7 @@
 package br.com.apiInstallOnLinux.Model;
 
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,11 +14,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
  * @author alciran
  */
+@Getter
+@Setter
 @Entity
 @Table(name="distribuicao")
 public class Distribuicao {
@@ -35,60 +40,11 @@ public class Distribuicao {
     
     @NotNull
     @Size(max = 30)
+    @Column(name = "path_logo")
     private String pathLogo;
     
-    @NotNull
+    @NotNull    
     private boolean ativo = true;
-    
-    private int numDownScript = 0;
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getHeader() {
-        return header;
-    }
-
-    public void setHeader(String header) {
-        this.header = header;
-    }
-
-    public String getPathLogo() {
-        return pathLogo;
-    }
-
-    public void setPathLogo(String pathLogo) {
-        this.pathLogo = pathLogo;
-    }
-
-    public boolean isAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
-    }
-        
-    public int getNumDownScript() {
-        return numDownScript;
-    }
-
-    public void setNumDownScript(int numDownScript) {
-        this.numDownScript = numDownScript;
-    }
-    
-    public void addNumDownScript(){
-        setNumDownScript(this.getNumDownScript() + 1);
-    }
     
     @Override
     public int hashCode() {

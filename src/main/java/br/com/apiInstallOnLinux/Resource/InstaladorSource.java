@@ -5,8 +5,8 @@
  */
 package br.com.apiInstallOnLinux.Resource;
 
-import br.com.apiInstallOnLinux.Model.Software;
-import br.com.apiInstallOnLinux.Service.SoftwareService;
+import br.com.apiInstallOnLinux.Model.Instalador;
+import br.com.apiInstallOnLinux.Service.InstaladorService;
 import br.com.apiInstallOnLinux.event.RecursoCriadoEvent;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -29,36 +28,40 @@ import org.springframework.web.bind.annotation.RestController;
  * @author alciran
  */
 @RestController
-@RequestMapping("/softwares")
-public class SoftwareResource {
+@RequestMapping("/instaladores")
+public class InstaladorSource {
     
     @Autowired
-    private SoftwareService softwareService;
+    private InstaladorService instaladorService;
     
     @Autowired
     private ApplicationEventPublisher publisher;
     
     @GetMapping
-    public List<Software> listar(){
-        return softwareService.buscarTodos();
+    public List<Instalador> listarAprovados(){
+        return instaladorService.listarAprovados();
     }
     
     @GetMapping("/{id}")
-    public Software buscarSoftware(@PathVariable Long id){
-        return softwareService.buscarPorId(id);
+    public Instalador buscar(@PathVariable Long id){
+        return instaladorService.buscarPorId(id);
     }
     
     @PostMapping
-    public ResponseEntity<Software> criar(@Valid @RequestBody Software software, HttpServletResponse response){
-        Software softwareCriado = softwareService.criar(software);
-        publisher.publishEvent(new RecursoCriadoEvent(this, response, softwareCriado.getId()));
-        return ResponseEntity.status(HttpStatus.CREATED).body(softwareCriado);
+    public ResponseEntity<Instalador> criar(@Valid @RequestBody Instalador instalador, HttpServletResponse response){
+        Instalador instaladorCriado = instaladorService.criar(instalador);
+        publisher.publishEvent(new RecursoCriadoEvent(this, response, instaladorCriado.getId()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(instaladorCriado);
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<Software> atualizar(@PathVariable Long id, @Valid @RequestBody Software software){
-        Software softwareAtualizado = softwareService.atualizar(id, software);
-        return ResponseEntity.ok().body(softwareAtualizado);
+    private ResponseEntity<Instalador> atualizar(@PathVariable Long id, @Valid @RequestBody Instalador instalador){
+        Instalador instaladorAtualizado = instaladorService.atualizar(id, instalador);
+        return ResponseEntity.ok().body(instaladorAtualizado);
     }
-       
+    
+    @PutMapping("/{id}/addNumDownScript")
+    public void addNumDownScript(@PathVariable Long id){
+        instaladorService.addNumDownScript(id);
+    }
 }

@@ -72,9 +72,5 @@ public class DistribuicaoResource {
         distribuicaoService.atualizarPropriedadeAtivo(id, ativo);
     }
     
-    @PutMapping("/{id}/addNumDownScript")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void addNumDownScript(@PathVariable Long id){
-        distribuicaoService.addDownScript(id);
-    }
+  
 }

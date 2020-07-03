@@ -42,14 +42,9 @@ public class SoftwareService {
 
     public Software atualizar(Long id, Software software) {
         Software softwareAtualmenteSalvo = buscarPorId(id);
-        BeanUtils.copyProperties(software, softwareAtualmenteSalvo, "id");
+        BeanUtils.copyProperties(software, softwareAtualmenteSalvo, "id", "dataCadastro");
         return softwareRepository.save(softwareAtualmenteSalvo);        
     }
-
-    public void addNumDownScript(Long id) {
-        Software softwareAtualizado = buscarPorId(id);
-        softwareAtualizado.addNumDownScript();
-        softwareRepository.save(softwareAtualizado);
-    }
     
+
 }

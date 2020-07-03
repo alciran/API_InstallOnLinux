@@ -6,14 +6,15 @@
 package br.com.apiInstallOnLinux.Model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,34 +31,32 @@ import org.hibernate.annotations.CreationTimestamp;
 @Getter
 @Setter
 @Entity
-@Table(name="software")
-public class Software {
+@Table(name = "usuario")
+public class Usuario {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     @NotNull
-    @Size(min = 3, max = 50)
+    @Size(min = 3 , max = 35)
     private String nome;
     
     @NotNull
-    @Size(max = 20)
-    private String versao;
-    
-    @Column(name = "site_oficial")
-    private String siteOficial;
+    @Size(min = 3, max = 100)
+    private String email;
     
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "id_categoria")
-    private Categoria categoria;
+    @Size(min = 8 , max = 32)
+    private String senha;
+
+    @NotNull
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Distribuicao> distribuicoes;
     
     @NotNull
-    private String descricao;
+    private boolean ativo;
     
-    @Column(name = "path_logo")
-    private String pathLogo;
     
     @CreationTimestamp
     @Temporal(TemporalType.DATE)
@@ -66,8 +65,8 @@ public class Software {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 29 * hash + Objects.hashCode(this.id);
+        int hash = 5;
+        hash = 67 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -82,7 +81,7 @@ public class Software {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Software other = (Software) obj;
+        final Usuario other = (Usuario) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
@@ -91,7 +90,8 @@ public class Software {
 
     @Override
     public String toString() {
-        return "Software{" + "nome=" + nome + '}';
+        return "Usuario{" + "nome=" + nome + '}';
     }
+    
     
 }

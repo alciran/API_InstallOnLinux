@@ -52,12 +52,6 @@ public class DistribuicaoService {
         distribuicaoRepository.save(distribuicaoAtualizada);
     }
 
-    public void addDownScript(Long id) {
-        Distribuicao distribuicaoAtualizada = buscarPorId(id);
-        distribuicaoAtualizada.addNumDownScript();
-        distribuicaoRepository.save(distribuicaoAtualizada);
-    }
-
     public List<Distribuicao> buscarAtivos() {
         return distribuicaoRepository.findByAtivo(Boolean.TRUE);
     }

@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +20,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,44 +31,53 @@ import org.hibernate.annotations.CreationTimestamp;
 @Getter
 @Setter
 @Entity
-@Table(name="software")
-public class Software {
+@Table(name = "instalador")
+public class Instalador {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @NotNull
-    @Size(min = 3, max = 50)
-    private String nome;
-    
-    @NotNull
-    @Size(max = 20)
-    private String versao;
-    
-    @Column(name = "site_oficial")
-    private String siteOficial;
+    @NotNull    
+    @ManyToOne
+    @JoinColumn(name = "id_distribuicao")
+    private Distribuicao distribuicao;
     
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "id_categoria")
-    private Categoria categoria;
+    @JoinColumn(name = "id_software")
+    private Software software;
+    
+    private boolean nativo;
+    
+    @Column(name = "code_install")
+    private String codeInstall;
     
     @NotNull
-    private String descricao;
+    @Enumerated(EnumType.STRING)
+    private Status status;
     
-    @Column(name = "path_logo")
-    private String pathLogo;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
     
     @CreationTimestamp
     @Temporal(TemporalType.DATE)
     @Column(name = "data_cadastro")
     private Date dataCadastro;
+    
+    @Column(name = "num_down_script")
+    private int numDownScript = 0;
+    
+    public void addNumDownScript(){
+        setNumDownScript(this.getNumDownScript() + 1);
+    }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 29 * hash + Objects.hashCode(this.id);
+        hash = 41 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -82,16 +92,11 @@ public class Software {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Software other = (Software) obj;
+        final Instalador other = (Instalador) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Software{" + "nome=" + nome + '}';
-    }
-    
+    }    
+       
 }
