@@ -31,8 +31,8 @@ import org.hibernate.annotations.CreationTimestamp;
 @Getter
 @Setter
 @Entity
-@Table(name = "usuario")
-public class Usuario {
+@Table(name = "usuario_sistema")
+public class UsuarioSistema {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,19 +43,10 @@ public class Usuario {
     private String nome;
     
     @NotNull
-    @Size(min = 3, max = 100)
-    private String email;
-    
-    @NotNull
-    @Size(min = 8 , max = 32)
-    private String senha;
-
-    @NotNull
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Distribuicao> distribuicoes;
     
-    @NotNull
-    private boolean ativo;
+    private boolean ativo = true;
     
     
     @CreationTimestamp
@@ -81,7 +72,7 @@ public class Usuario {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Usuario other = (Usuario) obj;
+        final UsuarioSistema other = (UsuarioSistema) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }

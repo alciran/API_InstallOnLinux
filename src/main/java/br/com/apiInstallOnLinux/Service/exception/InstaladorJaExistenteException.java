@@ -3,18 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.apiInstallOnLinux.Model;
+package br.com.apiInstallOnLinux.Service.exception;
 
 /**
  *
  * @author alciran
  */
-public enum Status {
+public class InstaladorJaExistenteException extends RuntimeException {
     
-    CRIANDO,
-    TESTANDO,
-    VALIDANDO,
-    INCONSISTENTE,
-    APROVADO
-    
-}
+    private static final long serialVersionUID = 1L;
+     
+} 

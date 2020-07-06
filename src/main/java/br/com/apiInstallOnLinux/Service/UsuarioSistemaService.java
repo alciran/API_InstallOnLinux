@@ -5,49 +5,49 @@
  */
 package br.com.apiInstallOnLinux.Service;
 
-import br.com.apiInstallOnLinux.Model.Usuario;
-import br.com.apiInstallOnLinux.Repository.UsuarioRepository;
+import br.com.apiInstallOnLinux.Model.UsuarioSistema;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import br.com.apiInstallOnLinux.Repository.UsuarioSistemaRepository;
 
 /**
  *
  * @author alciran
  */
 @Service
-public class UsuarioService {
+public class UsuarioSistemaService {
     
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UsuarioSistemaRepository usuarioRepository;
 
-    public List<Usuario> buscarTodos() {
+    public List<UsuarioSistema> buscarTodos() {
         return usuarioRepository.findAll();
     }
 
-    public Usuario buscarPorId(Long id) {
-        Optional<Usuario> usuarioBuscado = usuarioRepository.findById(id);
+    public UsuarioSistema buscarPorId(Long id) {
+        Optional<UsuarioSistema> usuarioBuscado = usuarioRepository.findById(id);
         if(!usuarioBuscado.isPresent()){
             throw new EmptyResultDataAccessException(1);
         }
         return usuarioBuscado.get();
     }
 
-    public Usuario criar(Usuario usuario) {
+    public UsuarioSistema criar(UsuarioSistema usuario) {
         return usuarioRepository.save(usuario);
     }
 
-    public Usuario atualizar(Long id, Usuario usuario) {
-        Usuario usuarioAtualmenteSalvo = buscarPorId(id);
+    public UsuarioSistema atualizar(Long id, UsuarioSistema usuario) {
+        UsuarioSistema usuarioAtualmenteSalvo = buscarPorId(id);
         BeanUtils.copyProperties(usuario, usuarioAtualmenteSalvo, "id", "dataCadastro");
         return usuarioRepository.save(usuarioAtualmenteSalvo);
     }
 
     public void atualizarPropriedadeAtivo(Long id, boolean ativo) {
-        Usuario usuario = buscarPorId(id);
+        UsuarioSistema usuario = buscarPorId(id);
         usuario.setAtivo(ativo);
         usuarioRepository.save(usuario);
     }

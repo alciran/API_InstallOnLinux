@@ -52,15 +52,15 @@ public class Instalador {
     
     @Column(name = "code_install")
     private String codeInstall;
+
     
-    @NotNull
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private Status status = Status.CRIANDO;
     
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "id_usuario")
-    private Usuario usuario;
+    @JoinColumn(name = "id_usuario_sistema")
+    private UsuarioSistema usuario;
     
     @CreationTimestamp
     @Temporal(TemporalType.DATE)

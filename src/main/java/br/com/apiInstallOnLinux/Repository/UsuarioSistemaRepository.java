@@ -5,13 +5,13 @@
  */
 package br.com.apiInstallOnLinux.Repository;
 
-import br.com.apiInstallOnLinux.Model.Usuario;
+import br.com.apiInstallOnLinux.Model.UsuarioSistema;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author alciran
  */
-public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+public interface UsuarioSistemaRepository extends JpaRepository<UsuarioSistema, Long> {
     
 }

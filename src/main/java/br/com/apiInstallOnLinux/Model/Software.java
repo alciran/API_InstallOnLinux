@@ -39,6 +39,7 @@ public class Software {
     
     @NotNull
     @Size(min = 3, max = 50)
+    @Column(unique = true)
     private String nome;
     
     @NotNull
@@ -57,7 +58,7 @@ public class Software {
     private String descricao;
     
     @Column(name = "path_logo")
-    private String pathLogo;
+    private String pathLogo = "software.png";
     
     @CreationTimestamp
     @Temporal(TemporalType.DATE)

@@ -33,6 +33,7 @@ public class Distribuicao {
     
     @NotNull
     @Size(max = 30)
+    @Column(unique = true)
     private String nome;
     
     @NotNull
